@@ -1,6 +1,4 @@
 #include "Accelerometer.h"
-#include <Arduino.h>
-#include <Joystick.h>
 #include "MPU6050.h"
 #include "Enums.h"
 
@@ -46,8 +44,8 @@ void Accelerometer::init(Joystick_* joystick, Config* config) {
   xValueOffset = xValueOffset/10;
   yValueOffset = yValueOffset/10;
 
-  
-  
+
+
   //if (DEBUG) {Serial.print(F("DEBUG,MPU6050 Found!\r\n"));}
 }
 
@@ -125,5 +123,5 @@ void Accelerometer::sendAccelerometerState() {
   Serial.print(F(","));
   Serial.print(yValue);
   Serial.print(F("\r\n"));
-  
+
 }

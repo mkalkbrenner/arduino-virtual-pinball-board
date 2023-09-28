@@ -3,7 +3,7 @@
 #include <Arduino.h>
 
 class Config {
-  
+
   public:
     Config();
     void saveConfig();
@@ -46,7 +46,7 @@ class Config {
     byte restingStateCounter = 200;
   private:
     bool DEBUG = false;
-    byte Config::blockRead();
+    byte blockRead();
     void writeIntIntoEEPROM(int address, int number);
     int readIntFromEEPROM(int address);
     void printError();
@@ -56,8 +56,8 @@ class Config {
     int readIntFromByte();
     void readConfigArray(byte* configArray, byte size);
     void printConfigArray(byte* configArray, byte size);
-    
-    
+
+
 };
 
 #endif

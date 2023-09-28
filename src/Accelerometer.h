@@ -1,19 +1,19 @@
 #ifndef ACCEL_H
 #define ACCEL_H
 #include <Arduino.h>
-#include <Joystick.h>
+#include "JoystickWrapper.h"
 #include "Config.h"
 
 
 class Accelerometer {
-  
+
   public:
     Accelerometer();
     void init(Joystick_* joystick, Config* config);
     void accelerometerRead();
     void sendAccelerometerState();
     void resetAccelerometer();
-    
+
   private:
     bool DEBUG = false;
     Config* _config;

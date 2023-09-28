@@ -101,7 +101,7 @@ void Communication::communicate() {
 void Communication::sendAdmin() {
 
 
-    
+
 
   if (admin > 0) {
     delay(50);
@@ -155,7 +155,7 @@ void Communication::sendAdmin() {
       admin = 0;
       break;
     }
-    
+
   }
 }
 

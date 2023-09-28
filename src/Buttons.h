@@ -1,19 +1,19 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 #include <Arduino.h>
-#include <Joystick.h>
+#include "JoystickWrapper.h"
 #include "Config.h"
 #include "Outputs.h"
 
 class Buttons {
-  
+
   public:
     Buttons();
     void readInputs();
     void init(Joystick_* joystick, Config* config, Outputs* outputs);
     void sendButtonState();
-    
-    
+
+
   private:
     byte buttonOffset = 0;
     bool DEBUG = false;

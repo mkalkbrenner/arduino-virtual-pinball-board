@@ -1,12 +1,9 @@
 #include "Plunger.h"
 #include <Arduino.h>
-#include <Joystick.h>
-
-
 
 
 Plunger::Plunger() {
-  
+
 
   pinMode(23, INPUT_PULLUP); //plunger
   //if (DEBUG) {Serial.print(F("DEBUG,plunger: pins initialized\r\n"));}
@@ -60,7 +57,7 @@ void Plunger::plungerRead() {
     _joystick->setButton(_config->plungerLaunchButton, 0);
     buttonState2 = 0;
   }
-  
+
   if (sensorValue <= _config->plungerMid) {
     adjustedValue = sensorValue;
   } else {

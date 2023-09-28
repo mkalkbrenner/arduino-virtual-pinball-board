@@ -1,6 +1,7 @@
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
 #include <Arduino.h>
+#include "JoystickWrapper.h"
 #include "Plunger.h"
 #include "Buttons.h"
 #include "Accelerometer.h"
@@ -9,16 +10,16 @@
 
 
 class Communication {
-  
+
   public:
     Communication();
     void init(Plunger* plunger, Accelerometer* accel, Buttons* buttons, Config* config, Outputs* outputs, Joystick_* joystick);
     //void init();
     void communicate();
-    
+
   private:
     bool DEBUG = false;
-    char* connectedString = "DEBUG,CSD Board Connected\r\n";
+    char connectedString[28] = "DEBUG,CSD Board Connected\r\n";
     byte firstNumber = 0; //0 normally
     byte bankOffset = 200; //200 normally
     byte adminNumber = 250; //250 normally

@@ -11,7 +11,7 @@ Outputs::Outputs() {
    for (int index = 0; index < numberOutputs; index++) {
     pinMode(outputList[index], OUTPUT);
    }
-  
+
   //if (DEBUG) {Serial.print(F("DEBUG,Communication: pins initialized\r\n"));}
 }
 
@@ -27,7 +27,11 @@ void Outputs::init(Config* config) {
   pwm2.setOscillatorFrequency(27000000);
   pwm2.setPWMFreq(90);  // This is the maximum PWM frequency
   Wire.setClock(400000);
+
+// @fixme
+#ifndef USE_TINYUSB
   Wire.setWireTimeout(3000, true);
+#endif
 
   turnOff();
 
@@ -96,7 +100,7 @@ void Outputs::updateOutputInternal(byte outputId, byte outputValue) {
       updateOutputActual(outputId - 15, 1, outputValue * 16);
     }
   }
-  
+
 
 }
 

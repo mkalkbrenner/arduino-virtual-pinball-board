@@ -1,6 +1,4 @@
 #include "Buttons.h"
-#include <Arduino.h>
-#include <Joystick.h>
 #include "ButtonReader.h"
 #include "Enums.h"
 #include <Keyboard.h>
@@ -18,7 +16,7 @@ Buttons::Buttons() {
   //if (DEBUG) {Serial.print(F("DEBUG,buttons: About to initialize pins\r\n"));}
   buttonReader.init();
   //if (DEBUG) {Serial.print(F("DEBUG,buttons: pins initialized\r\n"));}
-  
+
 }
 
 void Buttons::init(Joystick_* joystick, Config* config, Outputs* outputs) {
@@ -41,7 +39,7 @@ void Buttons::readInputs() {
       if (currentButtonState != lastButtonState[i]) {
         // mod 24 so that the button number is always between 0 and 23
         if (i == _config->nightModeButton % 24) {
-          
+
           if (_config->nightModeButton < 24) {
             _config->nightMode = currentButtonState;
           } else {
@@ -56,7 +54,7 @@ void Buttons::readInputs() {
         } else if (currentButtonState == 0 && buttonPushed == 2) {
           buttonPushed = 0;
         }
-        
+
         if (i > 3 && i < 8 && lastButtonState[_config->shiftButton] == 1) {
           buttonOffset = 20;
         } else {
@@ -70,8 +68,8 @@ void Buttons::readInputs() {
           }
         }
         _joystick->setButton(i + buttonOffset, currentButtonState);
-        
-        
+
+
         lastButtonState[i] = currentButtonState;
 
         for (int j = 0; j < 4; j++) {
@@ -108,5 +106,5 @@ void Buttons::sendButtonState() {
   }
   Serial.print(lastButtonState[23]);
   Serial.print(F("\r\n"));
-  
+
 }

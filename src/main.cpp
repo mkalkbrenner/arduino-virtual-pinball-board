@@ -3,13 +3,13 @@
 #include "Accelerometer.h"
 #include "Communication.h"
 #include "Outputs.h"
-#include <Joystick.h>
+#include "JoystickWrapper.h"
 #include "Config.h"
 #include <Wire.h>
 #include "LightShow.h"
 
 
-Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_GAMEPAD,
+Joystick_ Joystick_(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_GAMEPAD,
   28, 0,                  // Button Count, Hat Switch Count
   true, true, true,      // X and Y, Z axis for plunger
   false, false, false,   // No Rx, Ry, or Rz
@@ -34,16 +34,16 @@ void setup() {
   // Initialize Joystick Library
   config.init();
   outputs.init(&config);
-  Joystick.begin();
-  buttons.init(&Joystick, &config, &outputs);
-  plunger.init(&Joystick, &config);
+  Joystick_.begin();
+  buttons.init(&Joystick_, &config, &outputs);
+  plunger.init(&Joystick_, &config);
   lightShow.init(&config, &outputs);
   if (config.accelerometer > 0) {
-    accel.init(&Joystick, &config);
+    accel.init(&Joystick_, &config);
   }
-  
-  comm.init(&plunger, &accel, &buttons, &config, &outputs, &Joystick);
-  
+
+  comm.init(&plunger, &accel, &buttons, &config, &outputs, &Joystick_);
+
 }
 
 
@@ -51,7 +51,11 @@ void setup() {
 void loop() {
   //long int t1 = millis();
   buttons.readInputs();
+#ifdef USE_TINYUSB
+  if (!USBDevice.suspended()) {
+#else
   if (!USBDevice.isSuspended()) {
+#endif
     plunger.plungerRead();
     if (config.accelerometerEprom > 0) {
       accel.accelerometerRead();
@@ -63,5 +67,5 @@ void loop() {
   //Serial.print(F("DEBUG,Time taken by the task: ")); Serial.print((t2-t1)); Serial.print(F(" milliseconds\r\n"));
   //delay(100);
   //Serial.println("arduino is running");
-  
+
 }
